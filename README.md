@@ -14,6 +14,7 @@ run these commands in bash/terminal one at a time
 
 ## How to Play Hunt the Wumpus ##
 Welcome to Hunt the Wumpus! In this game, you must navigate through a maze of rooms to find and shoot the dangerous Wumpus, while avoiding traps. Here's a quick guide on how to play:
+(BTW, your chances of winning at very slim, like 5%. But thats the life of a wumpus hunter)
 
 Objective:
     
