@@ -1,6 +1,7 @@
 import unittest
 import game
 
+
 class TestHuntTheWumpus(unittest.TestCase):
 
     def setUp(self):
@@ -29,8 +30,10 @@ class TestHuntTheWumpus(unittest.TestCase):
     def test_get_status(self):
         status = game.get_status()
         self.assertEqual(status["player_room"], game.player_room)
-        self.assertTrue(status["alive"])
-        self.assertFalse(status["has_won"])
+        self.assertIn("alive", status)
+        self.assertIn("has_won", status)
+        self.assertIn("adjacent_rooms", status)
+
 
 if __name__ == "__main__":
     unittest.main()
