@@ -1,1 +1,42 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - main  # or master, depending on your default branch
+  pull_request:
+    branches:
+      - main  # or master, depending on your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # You can change this to macos-latest or windows-latest if needed
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Python
+      - name: Set up Python 3.12  # Use the version of Python you're working with
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      # Install dependencies (for example, install requirements.txt)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Make sure you have a requirements.txt in your repo
+
+      # Run linting (optional, but recommended)
+      - name: Lint code
+        run: |
+          pip install flake8  # or pylint, black, etc.
+          flake8 .  # or run your linter of choice
+
+      # Run the tests
+      - name: Run tests
+        run: |
+          python -m unittest discover  # Or run your tests with pytest, nose, etc.
  
