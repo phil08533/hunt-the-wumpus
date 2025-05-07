@@ -1,4 +1,4 @@
-name: Format Code with autopep8
+name: Format Code and Run Tests
 
 on:
   push:
@@ -25,11 +25,17 @@ jobs:
 
     - name: Install dependencies
       run: |
+        pip install -r requirements.txt
         pip install autopep8
+        pip install pytest
 
     - name: Format code with autopep8
       run: |
         autopep8 --in-place --aggressive --aggressive game.py gameunittest.py
+
+    - name: Run pytest tests
+      run: |
+        pytest gameunittest.py
 
     - name: Commit and push changes
       run: |
