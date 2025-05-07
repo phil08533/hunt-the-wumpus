@@ -25,13 +25,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
+        pip install -r requirements.txt  # Install dependencies from requirements.txt
 
-    - name: Run tests
+    - name: Run linting with flake8
       run: |
-        pytest tests/
+        flake8 .  # Lint all Python files in the repo
 
-    - name: Run Flake8 linting
+    - name: Run unit tests with pytest
       run: |
-        pip install flake8
-        flake8 . --config .flake8
+        pytest gameunittest.py --maxfail=1 --disable-warnings -q  # Run tests in gameunittest.py
