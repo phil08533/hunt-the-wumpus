@@ -3,40 +3,34 @@ name: Python CI
 on:
   push:
     branches:
-      - main  # or master, depending on your default branch
+      - main
+      - develop
   pull_request:
     branches:
-      - main  # or master, depending on your default branch
+      - main
+      - develop
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # You can change this to macos-latest or windows-latest if needed
+    runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code from the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Set up Python
-      - name: Set up Python 3.12  # Use the version of Python you're working with
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.12
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
 
-      # Install dependencies (for example, install requirements.txt)
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Make sure you have a requirements.txt in your repo
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # Install dependencies from requirements.txt
 
-      # Run linting (optional, but recommended)
-      - name: Lint code
-        run: |
-          pip install flake8  # or pylint, black, etc.
-          flake8 .  # or run your linter of choice
+    - name: Run linting with flake8
+      run: |
+        flake8 .  # Lint all Python files in the repo
 
-      # Run the tests
-      - name: Run tests
-        run: |
-          python -m unittest discover  # Or run your tests with pytest, nose, etc.
- 
+    - name: Run unit tests with pytest
+      run: |
+        pytest gameunittest.py --maxfail=1 --disable-warnings -q 

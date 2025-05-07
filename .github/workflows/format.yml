@@ -1,8 +1,4 @@
-
-name: Format Code with autopep8
-
-permissions:
-  contents: write
+name: Format Code and Run Tests
 
 on:
   push:
@@ -29,17 +25,24 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt || true  # allow format to run even if requirements fail
-        pip install autopep8
+        pip install -r requirements.txt  # Install dependencies from requirements.txt
 
     - name: Format code with autopep8
       run: |
-        autopep8 --in-place --aggressive --aggressive **/*.py
+        autopep8 --in-place --aggressive --aggressive game.py gameunittest.py  # Format game.py and gameunittest.py
+
+    - name: Run linting with flake8
+      run: |
+        flake8 .  # Lint all Python files in the repo
+
+    - name: Run unit tests with pytest
+      run: |
+        pytest gameunittest.py --maxfail=1 --disable-warnings -q  # Run tests in gameunittest.py
 
     - name: Commit and push changes
       run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
         git add .
         git commit -m 'Auto-formatted code with autopep8' || echo "No changes to commit"
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
+        git push  # Push changes back to the repository if any were made
