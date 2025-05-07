@@ -33,4 +33,4 @@ jobs:
 
     - name: Run unit tests with pytest
       run: |
-        pytest gameunittest.py --maxfail=1 --disable-warnings -q  # Run tests in gameunittest.py
+        pytest gameunittest.py --maxfail=1 --disable-warnings -q 
