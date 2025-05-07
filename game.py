@@ -1,5 +1,6 @@
 import random
 
+
 # Game state variables
 rooms = {}
 player_room = None
@@ -7,9 +8,11 @@ wumpus_room = None
 alive = True
 has_won = False
 
+
 def generate_map():
     global rooms
     rooms = {i: [(i + 1) % 20, (i + 2) % 20, (i + 3) % 20] for i in range(20)}
+
 
 def start_game():
     global player_room, wumpus_room, alive, has_won
@@ -18,6 +21,7 @@ def start_game():
     player_room = random.choice([r for r in rooms if r != wumpus_room])
     alive = True
     has_won = False
+
 
 def move_player(room):
     global player_room, alive
@@ -28,12 +32,14 @@ def move_player(room):
     else:
         raise ValueError("Can't move to that room")
 
+
 def shoot_arrow(room):
     global has_won, alive
     if room == wumpus_room:
         has_won = True
     else:
         alive = False
+
 
 def get_status():
     return {
@@ -42,6 +48,7 @@ def get_status():
         "has_won": has_won,
         "adjacent_rooms": rooms[player_room]
     }
+
 
 # Run game loop
 if __name__ == "__main__":
